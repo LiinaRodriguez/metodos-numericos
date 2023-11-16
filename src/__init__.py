@@ -1,0 +1,1 @@
+# Necesito exportar un cuadro de texto por cada método, la función
