@@ -1,4 +1,3 @@
-import numpy as np
 import math
 from texttable import Texttable
 
