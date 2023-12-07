@@ -68,9 +68,8 @@ class NewtonContent(tk.Frame):
             
         if any([
         self.function_entry.get() == '',
-        self.x1_entry.get() == '',
-        self.x2_entry.get() == '',
-        self.x3_entry.get() == '',
+        self.x_anterior_entry.get() == '',
+        self.x_actual_entry.get() == '',
         self.tolerancia_entry.get() == '',
         ]):
             messagebox.showwarning("Error", "Por favor ingrese los datos.")

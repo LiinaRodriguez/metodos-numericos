@@ -2,10 +2,10 @@ from texttable import Texttable
 from sympy import symbols, sympify
 import math
 
-def biseccion(funcion, xl, xu, tolerancia, Flag):
+def biseccion(funcion_expresion, xl, xu, tolerancia, Flag):
 
     x = symbols('x')
-    funcion_expresion = sympify(funcion)
+    #funcion_expresion = sympify(funcion)
     print("Expresion simbolica:", funcion_expresion)
     i = 0
     resultado = []
@@ -54,7 +54,8 @@ def biseccion(funcion, xl, xu, tolerancia, Flag):
 
 def dataInput(funcion_entry, xl_entry, xu_entry, tolerancia_entry, criterio):
         #preparar los datos
-        funcion = str(funcion_entry.get()).replace('^', '**').replace('x', '*x')
+        funcion_str = str(funcion_entry.get())
+        funcion_expresion = process_function_input(funcion_str)
         
 
         xl = float(xl_entry.get())
@@ -62,10 +63,19 @@ def dataInput(funcion_entry, xl_entry, xu_entry, tolerancia_entry, criterio):
         Tolerancia = int(tolerancia_entry.get())
         Flag = bool(criterio.get())
 
-        Data = biseccion(funcion, xl, xu, Tolerancia, Flag)
+        Data = biseccion(funcion_expresion, xl, xu, Tolerancia, Flag)
         tabla = Texttable()
         tabla.add_rows(Data)
 
         print(tabla.draw())
         
         return Data
+
+def process_function_input(funcion_str):
+    x = symbols('x')
+    try:
+        funcion_expresion = sympify(funcion_str)
+        return funcion_expresion
+    except:
+        print("Invalid function expression")
+        return None

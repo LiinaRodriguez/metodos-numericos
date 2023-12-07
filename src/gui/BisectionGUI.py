@@ -72,9 +72,8 @@ class BisectionContent(tk.Frame):
             
         if any([
         self.function_entry.get() == '',
-        self.x1_entry.get() == '',
-        self.x2_entry.get() == '',
-        self.x3_entry.get() == '',
+        self.xl_entry.get() == '',
+        self.xu_entry.get() == '',
         self.tolerancia_entry.get() == '',
         ]):
             messagebox.showwarning("Error", "Por favor ingrese los datos.")

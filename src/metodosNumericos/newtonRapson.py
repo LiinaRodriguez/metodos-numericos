@@ -1,9 +1,9 @@
 from texttable import Texttable
 from sympy import symbols, diff, sympify
 
-def newtonRaphson(funcion, x_anterior, x_actual, tolerancia, criterioFlag):
+def newtonRaphson(funcion_expresion, x_anterior, x_actual, tolerancia, criterioFlag):
     x = symbols('x')
-    funcion_expresion = sympify(funcion)
+    #funcion_expresion = sympify(funcion)
     derivada = diff(funcion_expresion, x)
     i = 0
     resultado = []
@@ -34,17 +34,27 @@ def newtonRaphson(funcion, x_anterior, x_actual, tolerancia, criterioFlag):
 
 def dataInput(funcion_entry, x_anterior_entry, x_actual_entry, tolerancia_entry, criterio):
         #preparar los datos
-        funcion = str(funcion_entry.get()).replace('^', '**').replace('x', '*x')
+        funcion_str = str(funcion_entry.get())
+        funcion_expresion = process_function_input(funcion_str)
 
         xAnterior = float(x_anterior_entry.get())
         xActual = float(x_actual_entry.get())
         Tolerancia = int(tolerancia_entry.get())
         criterioF = bool(criterio.get())
 
-        Data = newtonRaphson(funcion, xAnterior, xActual, Tolerancia, criterioF)
+        Data = newtonRaphson(funcion_expresion, xAnterior, xActual, Tolerancia, criterioF)
         tabla = Texttable()
         tabla.add_rows(Data)
 
         print(tabla.draw())
         
         return Data
+
+def process_function_input(funcion_str):
+    x = symbols('x')
+    try:
+        funcion_expresion = sympify(funcion_str)
+        return funcion_expresion
+    except:
+        print("Invalid function expression")
+        return None
