@@ -23,11 +23,6 @@ class NewtonContent(tk.Frame):
         self.function_label.grid(row=0,column=0, padx=5, pady=(0, 5), sticky="ew")
         self.function_entry.grid(row=0,column=1, padx=5, pady=5, sticky="ew")
 
-        self.x_anterior_entry = ttk.Entry(self.inputFrame)
-        self.x_anterior_label = ttk.Label(self.inputFrame, text='xi-1')
-        self.x_anterior_label.grid(row=1,column=0,padx=5, pady=(0, 5), sticky="ew")
-        self.x_anterior_entry.grid(row=1,column=1, padx=5, pady=5, sticky="ew")
-
         self.x_actual_entry = ttk.Entry(self.inputFrame)
         self.x_actual_label = ttk.Label(self.inputFrame, text="xi")
         self.x_actual_label.grid(row=2,column=0,padx=5, pady=(0, 5), sticky="ew")
@@ -53,10 +48,9 @@ class NewtonContent(tk.Frame):
         tree_scroll = ttk.Scrollbar(tree_frame)
         tree_scroll.pack(side="right", fill="y")
 
-        cols = ("Iteracion", "X", "Xi+1", "Ea")
+        cols = ("Iteracion", "Xi+1", "Ea")
         self.treeview = ttk.Treeview(tree_frame, show="headings", yscrollcommand=tree_scroll.set, columns=cols, height=13)
         self.treeview.column("Iteracion", width=100)
-        self.treeview.column("X", width=100)
         self.treeview.column("Xi+1", width=100)
         self.treeview.column("Ea", width=100)
         self.treeview.pack()
@@ -68,14 +62,13 @@ class NewtonContent(tk.Frame):
             
         if any([
         self.function_entry.get() == '',
-        self.x_anterior_entry.get() == '',
         self.x_actual_entry.get() == '',
         self.tolerancia_entry.get() == '',
         ]):
             messagebox.showwarning("Error", "Por favor ingrese los datos.")
             return
 
-        resultado = dataInput(self.function_entry, self.x_anterior_entry, self.x_actual_entry, self.tolerancia_entry, self.criterio)
+        resultado = dataInput(self.function_entry, self.x_actual_entry, self.tolerancia_entry, self.criterio)
         print(resultado)
         for col_name in resultado[0]:
             col = str(col_name)
