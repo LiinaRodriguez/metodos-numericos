@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import sv_ttk
-from metodosNumericos.secante import dataInput
+from metodosNumericos.interpolacionLineal import dataInput
 from tkinter import BooleanVar
 
 class interpolacionLinealContent(tk.Frame):
@@ -23,15 +23,15 @@ class interpolacionLinealContent(tk.Frame):
         self.function_label.grid(row=0,column=0, padx=5, pady=(0, 5), sticky="ew")
         self.function_entry.grid(row=0,column=1, padx=5, pady=5, sticky="ew")
 
-        self.x_anterior_entry = ttk.Entry(self.inputFrame)
-        self.x_anterior_label = ttk.Label(self.inputFrame, text='xi-1')
-        self.x_anterior_label.grid(row=1,column=0,padx=5, pady=(0, 5), sticky="ew")
-        self.x_anterior_entry.grid(row=1,column=1, padx=5, pady=5, sticky="ew")
+        self.xl_entry = ttk.Entry(self.inputFrame)
+        self.xl_label = ttk.Label(self.inputFrame, text='xl')
+        self.xl_label.grid(row=1,column=0,padx=5, pady=(0, 5), sticky="ew")
+        self.xl_entry.grid(row=1,column=1, padx=5, pady=5, sticky="ew")
 
-        self.x_actual_entry = ttk.Entry(self.inputFrame)
-        self.x_actual_label = ttk.Label(self.inputFrame, text="xi")
-        self.x_actual_label.grid(row=2,column=0,padx=5, pady=(0, 5), sticky="ew")
-        self.x_actual_entry.grid(row=2,column=1, padx=5, pady=5, sticky="ew")
+        self.xu_entry = ttk.Entry(self.inputFrame)
+        self.xu_label = ttk.Label(self.inputFrame, text="xi")
+        self.xu_label.grid(row=2,column=0,padx=5, pady=(0, 5), sticky="ew")
+        self.xu_entry.grid(row=2,column=1, padx=5, pady=5, sticky="ew")
 
         self.tolerancia_entry = ttk.Entry(self.inputFrame)
         self.tolerancia_label = ttk.Label(self.inputFrame, text='Criterio')
@@ -53,20 +53,24 @@ class interpolacionLinealContent(tk.Frame):
         tree_scroll = ttk.Scrollbar(tree_frame)
         tree_scroll.pack(side="right", fill="y")
 
-        cols = ("Iteracion", "X", "Xi+1", "Ea")
+        cols = ("Iteracion", "xl", "f(xl)", "xu", "f(xu)", "xr", "Ea")
         self.treeview = ttk.Treeview(tree_frame, show="headings", yscrollcommand=tree_scroll.set, columns=cols, height=13)
-        self.treeview.column("Iteracion", width=100)
-        self.treeview.column("X", width=100)
-        self.treeview.column("Xi+1", width=100)
-        self.treeview.column("Ea", width=100)
+        self.treeview.column("Iteracion", width=90)
+        self.treeview.column("xl", width=60)
+        self.treeview.column("f(xl)", width=60)
+        self.treeview.column("xu", width=60)
+        self.treeview.column("f(xu)", width=60)
+        self.treeview.column("xr", width=60)
+        self.treeview.column("Ea", width=60)
         self.treeview.pack()
         tree_scroll.config(command=self.treeview.yview)
+
     
     def showResult(self):
         if self.function_entry.get() == '':
             print("Error -----------")
 
-        resultado = dataInput(self.function_entry, self.x_anterior_entry, self.x_actual_entry, self.tolerancia_entry, self.criterio)
+        resultado = dataInput(self.function_entry, self.xl_entry, self.xu_entry, self.tolerancia_entry, self.criterio)
         print(resultado)
         for col_name in resultado[0]:
             col = str(col_name)
