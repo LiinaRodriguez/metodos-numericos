@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import sv_ttk
 from metodosNumericos.biseccion import dataInput
-from tkinter import BooleanVar
+from tkinter import BooleanVar, messagebox
 
 class BisectionContent(tk.Frame):
     def __init__(self, parent):
@@ -67,8 +67,18 @@ class BisectionContent(tk.Frame):
         tree_scroll.config(command=self.treeview.yview)
     
     def showResult(self):
-        if self.function_entry.get() == '':
-            print("Error -----------")
+        for item in self.treeview.get_children():
+            self.treeview.delete(item)
+            
+        if any([
+        self.function_entry.get() == '',
+        self.x1_entry.get() == '',
+        self.x2_entry.get() == '',
+        self.x3_entry.get() == '',
+        self.tolerancia_entry.get() == '',
+        ]):
+            messagebox.showwarning("Error", "Por favor ingrese los datos.")
+            return
 
         resultado = dataInput(self.function_entry, self.xl_entry, self.xu_entry, self.tolerancia_entry, self.criterio)
         print(resultado)

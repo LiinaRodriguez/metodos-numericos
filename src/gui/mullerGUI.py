@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 import sv_ttk
-from metodosNumericos.secante import dataInput
+from metodosNumericos.muller import dataInput
 from tkinter import BooleanVar, messagebox
 
-class SecanteContent(tk.Frame):
+class mullerContent(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
    
@@ -23,29 +23,34 @@ class SecanteContent(tk.Frame):
         self.function_label.grid(row=0,column=0, padx=5, pady=(0, 5), sticky="ew")
         self.function_entry.grid(row=0,column=1, padx=5, pady=5, sticky="ew")
 
-        self.x_anterior_entry = ttk.Entry(self.inputFrame)
-        self.x_anterior_label = ttk.Label(self.inputFrame, text='xi-1')
-        self.x_anterior_label.grid(row=1,column=0,padx=5, pady=(0, 5), sticky="ew")
-        self.x_anterior_entry.grid(row=1,column=1, padx=5, pady=5, sticky="ew")
+        self.x1_entry = ttk.Entry(self.inputFrame)
+        self.x1_label = ttk.Label(self.inputFrame, text='x1')
+        self.x1_label.grid(row=1,column=0,padx=5, pady=(0, 5), sticky="ew")
+        self.x1_entry.grid(row=1,column=1, padx=5, pady=5, sticky="ew")
 
-        self.x_actual_entry = ttk.Entry(self.inputFrame)
-        self.x_actual_label = ttk.Label(self.inputFrame, text="xi")
-        self.x_actual_label.grid(row=2,column=0,padx=5, pady=(0, 5), sticky="ew")
-        self.x_actual_entry.grid(row=2,column=1, padx=5, pady=5, sticky="ew")
+        self.x2_entry = ttk.Entry(self.inputFrame)
+        self.x2_label = ttk.Label(self.inputFrame, text="x2")
+        self.x2_label.grid(row=2,column=0,padx=5, pady=(0, 5), sticky="ew")
+        self.x2_entry.grid(row=2,column=1, padx=5, pady=5, sticky="ew")
+
+        self.x3_entry = ttk.Entry(self.inputFrame)
+        self.x3_label = ttk.Label(self.inputFrame, text="x3")
+        self.x3_label.grid(row=3,column=0,padx=5, pady=(0, 5), sticky="ew")
+        self.x3_entry.grid(row=3,column=1, padx=5, pady=5, sticky="ew")
 
         self.tolerancia_entry = ttk.Entry(self.inputFrame)
         self.tolerancia_label = ttk.Label(self.inputFrame, text='Criterio')
-        self.tolerancia_label.grid(row=3,column=0,padx=5, pady=(0, 5), sticky="ew")
-        self.tolerancia_entry.grid(row=3,column=1, padx=5, pady=5, sticky="ew")
+        self.tolerancia_label.grid(row=4,column=0,padx=5, pady=(0, 5), sticky="ew")
+        self.tolerancia_entry.grid(row=4,column=1, padx=5, pady=5, sticky="ew")
 
         self.calcular_button = ttk.Button(self.inputFrame, text='Calcular', command=self.showResult)
-        self.calcular_button.grid(row=5, column=0, padx=5, pady=5, sticky="ew") 
+        self.calcular_button.grid(row=6, column=0, padx=5, pady=5, sticky="ew") 
 
         self.iteracionesButton = ttk.Radiobutton(self.inputFrame, text="Iteraciones", value=True, variable=self.criterio)
-        self.iteracionesButton.grid(row=4, column=0, padx=5, pady=5, sticky="ew")
+        self.iteracionesButton.grid(row=5, column=0, padx=5, pady=5, sticky="ew")
 
         self.ErrorButton = ttk.Radiobutton(self.inputFrame, text="Error", value=False, variable=self.criterio)
-        self.ErrorButton.grid(row=4, column=1, padx=5, pady=5, sticky="ew")
+        self.ErrorButton.grid(row=5, column=1, padx=5, pady=5, sticky="ew")
 
         # Tree Frame   
         tree_frame = ttk.Frame(self)
@@ -53,12 +58,15 @@ class SecanteContent(tk.Frame):
         tree_scroll = ttk.Scrollbar(tree_frame)
         tree_scroll.pack(side="right", fill="y")
 
-        cols = ("Iteracion", "X", "Xi+1", "Ea")
+        cols = ("Iteracion", "x1", "x2", "x3", "xr", "Ea")
         self.treeview = ttk.Treeview(tree_frame, show="headings", yscrollcommand=tree_scroll.set, columns=cols, height=13)
-        self.treeview.column("Iteracion", width=100)
-        self.treeview.column("X", width=100)
-        self.treeview.column("Xi+1", width=100)
-        self.treeview.column("Ea", width=100)
+        self.treeview.column("Iteracion", width=90)
+        self.treeview.column("x1", width=60)
+        self.treeview.column("x2", width=60)
+        self.treeview.column("x3", width=60)
+        self.treeview.column("xr", width=60)
+        self.treeview.column("Ea", width=60)
+
         self.treeview.pack()
         tree_scroll.config(command=self.treeview.yview)
     
@@ -76,7 +84,7 @@ class SecanteContent(tk.Frame):
             messagebox.showwarning("Error", "Por favor ingrese los datos.")
             return
 
-        resultado = dataInput(self.function_entry, self.x_anterior_entry, self.x_actual_entry, self.tolerancia_entry, self.criterio)
+        resultado = dataInput(self.function_entry, self.x1_entry, self.x2_entry, self.x3_entry, self.tolerancia_entry, self.criterio)
         print(resultado)
         for col_name in resultado[0]:
             col = str(col_name)

@@ -18,7 +18,7 @@ def interpolacionLineal(funcion_expresion, xl, xu, tolerancia, Flag):
     if Flag == False:
 
         while ea > tolerancia and i < max_iter:
-            i += 1
+            i += 1  
             xr_anterior = xr
             f_xl = funcion_expresion.subs(x, xl)
             f_xr = funcion_expresion.subs(x, xr)

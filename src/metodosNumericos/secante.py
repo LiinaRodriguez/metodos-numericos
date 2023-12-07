@@ -18,7 +18,7 @@ def secante(funcion_expresion, x_actual, x_siguiente, tolerancia, criterioF):
             i += 1
             x_anterior = x_actual
             x_actual = x_siguiente
-            if (funcion_expresion(x, x_anterior) - (funcion_expresion(x, x_actual))) == 0:
+            if (funcion_expresion.subs(x, x_anterior) - (funcion_expresion.subs(x, x_actual))) == 0:
                  print("Division por cero")
                  break
                  
@@ -33,7 +33,7 @@ def secante(funcion_expresion, x_actual, x_siguiente, tolerancia, criterioF):
         for j in range(iteraciones):
             x_anterior = x_actual
             x_actual = x_siguiente
-            if (funcion_expresion(x, x_anterior) - (funcion_expresion(x, x_actual))) == 0:
+            if (funcion_expresion.subs(x, x_anterior) - (funcion_expresion.subs(x, x_actual))) == 0:
                  print("Division por cero")
                  break
                  

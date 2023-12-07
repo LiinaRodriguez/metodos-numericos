@@ -5,6 +5,7 @@ from gui.NewtonGUI import  NewtonContent
 from gui.BisectionGUI import BisectionContent
 from gui.SecanteGUI import SecanteContent
 from gui.interpolacionLinealGUI import interpolacionLinealContent
+from gui.mullerGUI import mullerContent
 
 
 class InterfazPrincipal(tk.Tk):
@@ -48,9 +49,9 @@ class InterfazPrincipal(tk.Tk):
 
         #Tab #5
         OtroMetodoTab = ttk.Frame(self.notebook)
-        OtroMetodoTabContent = BisectionContent(OtroMetodoTab) #Llamar al metodo de Newton Mejorado o Muller
+        OtroMetodoTabContent = mullerContent(OtroMetodoTab) #Llamar al metodo de Newton Mejorado o Muller
         OtroMetodoTabContent.pack(fill=tk.BOTH, expand=True)
-        self.notebook.add(OtroMetodoTab, text="Otro")
+        self.notebook.add(OtroMetodoTab, text="Müller")
 
 if __name__ == "__main__":
     app = InterfazPrincipal()
