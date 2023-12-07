@@ -1,25 +1,57 @@
 import tkinter as tk
 from tkinter import ttk
+import sv_ttk
+from gui.NewtonGUI import  NewtonContent
+from gui.BisectionGUI import BisectionContent
+from gui.SecanteGUI import SecanteContent
+from gui.interpolacionLinealGUI import interpolacionLinealContent
 
-class PaginaInicio:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Programa de Métodos Numéricos")
 
-        self.root.geometry("900x600")
+class InterfazPrincipal(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Metodos Numericos")
 
-        bienvenida_label = ttk.Label(root, text="Bienvenido al Programa de Métodos Numéricos", font=("Arial", 16))
-        bienvenida_label.pack(pady=20)
+        sv_ttk.use_light_theme()
 
-        
-        boton_iniciar = ttk.Button(root, text="Iniciar Programa", command=self.abrir_programa)
-        boton_iniciar.pack(pady=10)
+        self.create_widgets()
 
-    def abrir_programa(self):
-       
-        print("Abriendo el programa principal")
+    def create_widgets(self):
+      
+        # Notebook
+        self.notebook = ttk.Notebook(self)
+        self.notebook.pack(fill=tk.BOTH, expand=True)
 
-root = tk.Tk()
-app = PaginaInicio(root)
+        # Tab #1
+        NewtonTab = ttk.Frame(self.notebook)
+        NewtonTabContent = NewtonContent(NewtonTab)
+        NewtonTabContent.pack(fill=tk.BOTH, expand=True)
+        self.notebook.add(NewtonTab, text="Newton Raphson")
 
-root.mainloop()
+        # Tab #2
+        BiseccionTab = ttk.Frame(self.notebook)
+        BiseccionTabContent = BisectionContent(BiseccionTab)
+        BiseccionTabContent.pack(fill=tk.BOTH, expand=True)
+        self.notebook.add(BiseccionTab, text="Biseccion")
+
+        #Tab #3
+        SecantTab = ttk.Frame(self.notebook)
+        SecantTabContent = SecanteContent(SecantTab) #metodo de la secanta
+        SecantTabContent.pack(fill=tk.BOTH, expand=True)
+        self.notebook.add(SecantTab, text="Secante")
+
+        #Tab #4
+        LinealInterpolationTab = ttk.Frame(self.notebook)
+        LinealInterpolationTabContent = interpolacionLinealContent(LinealInterpolationTab) #Llamar al metodo de falsa posicion
+        LinealInterpolationTabContent.pack(fill=tk.BOTH, expand=True)
+        self.notebook.add(LinealInterpolationTab, text="Falsa posicion")
+
+        #Tab #5
+        OtroMetodoTab = ttk.Frame(self.notebook)
+        OtroMetodoTabContent = BisectionContent(OtroMetodoTab) #Llamar al metodo de Newton Mejorado o Muller
+        OtroMetodoTabContent.pack(fill=tk.BOTH, expand=True)
+        self.notebook.add(OtroMetodoTab, text="Otro")
+
+if __name__ == "__main__":
+    app = InterfazPrincipal()
+    app.mainloop()
