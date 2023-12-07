@@ -1,7 +1,7 @@
 # Programa que implementa 5 métodos numéricos para aproximar
 
 ## 1. Interpolación lineal
-    Descripción: Este método estima el valor de una función entre dos puntos conocidos utilizando una línea recta.
+    Descripción: Este método estima el valor de una función \ entre dos puntos conocidos utilizando una línea recta.
 ## 2. Bisección
     Descripción: El método de bisección divide repetidamente un intervalo en dos partes y selecciona el subintervalo que tiene un cambio de signo. Es efectivo para funciones continuas.
 ## 3. Punto Fijo
